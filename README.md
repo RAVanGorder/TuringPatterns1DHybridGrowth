@@ -6,7 +6,7 @@ robert.vangorder@otago.ac.nz
 
 We briefly discuss codes used to run simulations shown in the paper. In carrying out simulations shown in the paper, we run simulations of the fully nonlinear reaction-diffusion systems using the finite difference method. We simulate these under relevant the static-domain formulations and map the solutions back to the time-varying domains to generate plots. We also simulate the system of ODEs obtained through the Turing instability analysis for each of the various Theorems and Corollaries in the paper, where relevant. All of these are implemented via MATLAB. 
 
-There are several specific codes, and their brief descriptions are:<br>
+There are several specific m files, and their brief descriptions are:<br>
 Uniform_Solver.m - Code used to solve the uniform growth problem<br>
 uniform_condition_calc.m - Code to generate plots of instability regions for the uniform growth problem<br>
 Apical_Solver.m - Code used to solve the apical growth problem and associated linear instability problem<br>
