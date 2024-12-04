@@ -11,7 +11,7 @@ RHS_matrixB = zeros(length(t), kmax);
 U=y_base(:,1);
 V=y_base(:,2);
 
-%% Calculate LHS of Eq (4.12) in Thm 4
+%% Calculate LHS of inequality in Corollary 3.1
 for k=1:kmax
     %% 
     LHS_matirx(:,k) = deter(U,V) + S.*(S+trac(U,V)+(k^2*pi^2./(r.^2*l^2)) * (d_1+d_2))...
@@ -19,7 +19,7 @@ for k=1:kmax
         + (k^2*pi^2./(r.^2*l^2)).^2 * d_1 * d_2;
 end
 
-%% Calculate RHS of Eq (4.12) in Thm 4
+%% Calculate RHS of inequality in Corollary 3.1
 d1 = n_Deriv((fu(U,V)+S)./fv(U,V), t);
 d2 = n_Deriv(1./(r.^2.*fv(U,V)), t);
 d3 = n_Deriv((gv(U,V)+S)./gu(U,V), t);
@@ -35,14 +35,14 @@ M = (RHS_matrix - LHS_matirx) >0 ;
 
 %% Helper functiosn
 
-    function v = n_Deriv(x,t) % Numerical derivative
+    function v = n_Deriv(x,t) % Numerical calculation of derivative
         xshift = [0;x(1:end-1)];
         tshift = [-1;t(1:end-1)];
         v = (x-xshift)./(t-tshift);
         v(1) = v(2);
     end
 
-    function d = fu(u,v) % Partial derivs of reaction kinetics 
+    function d = fu(u,v) % Partial derivatives of reaction kinetics 
         d = 2*u.*v -1;
     end
 
