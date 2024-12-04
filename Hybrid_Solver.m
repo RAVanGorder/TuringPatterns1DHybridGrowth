@@ -1,31 +1,29 @@
 function Hybrid_Solver
-% Function produces the plots for the hybrid growths (solve the PDE + numerical modes + linear system)
+% Function obtaining solutions for simple hybrid growth (solves the PDEs & obtains spatial modes & solves linear instability system)
 
 %% Parameters
-% Params for model
-
+% Parameters in the reaction-diffusion system
 a=0.01;
 b=1;
 d_1 = 0.004;
 d_2 = 0.1;
 Tf=100;
 
-% Growth params (can vary in time, for simplicity and ease of computation
-% just choose to be constants, still get cool behaviour)
+% Growth parameters
 rate_int = 0.00001;
 rate_L = -0.03;
 rate_R = 0.13;
 
-% Solution params
+% Simulation parameters
 max_mode = 65;
 kappa = max_mode+1;
 x = linspace(0,1,1001);
 t = linspace(0,Tf,1001);
 
-% ICs for linear ODE system
+% ICs for linear ODE system governing instability
 IC1 = 0.001*(rand(2,kappa)-0.5);
 
-%% Solve PDE
+%% Solve the reaction-diffusion PDE system
 
 function zvec = kenetics(w)
     zvec = [a-w(1) + w(1)^2 * w(2); b - w(1)^2 * w(2)];
@@ -39,7 +37,6 @@ function u0 = pdeic(xx)
 end
 
 function [c,f,s] = pdefun(x,t,w,dw)
-
     c = [1;1];
     f = (1/r(t).^2)*[d_1; d_2].* dw;
     s = kenetics(w) + S_int(t).*w + (x*(rdot_L(t)+rdot_R(t))-rdot_L(t))*dw./r(t); %(x*(rdot_L(t)+rdot_R(t))*intS(t)-rdot_L(t))*dw./r(t)
@@ -56,7 +53,7 @@ sol = pdepe(0, @pdefun, @pdeic, @pdebc, x, t);
 u = sol(:,:,1);
 v = sol(:,:,2);
 
-%% Plot solution
+%% Plot the solution of the activator, u, to the reaction-diffusion PDE system
 
 figure('Color','white')
 
@@ -72,7 +69,7 @@ title('System evolution', Interpreter='latex', FontSize=20)
 colormap(ax1,parula)
 shading interp
 
-%% Plot modes over time
+%% Plot spatial modes over time
 
 krange = 1:max_mode;
 mag_matrix = zeros(length(t),max_mode);
@@ -95,7 +92,7 @@ ylabel('Time $t$', Interpreter='latex', FontSize=18)
 title('Numerically extracted modes', Interpreter='latex', FontSize=20)
 shading flat
 
-%% Plot predicted mode growth over time (Solve trunc ODE system)
+%% Solve for and plot mode coefficients from the linear instability analysis of Corollary 4.1
 
 Dif = [d_1, 0; 0, d_2];
 mode_ICs = [IC1, [a+b; b/(a+b)^2]];
@@ -126,7 +123,7 @@ sgtitle(['$\dot{r}_L = -0.03,\, \dot{r}_R = 0.13,\, S_{\mathrm{int}} = 0$'], Int
 
 %% Helper functiosn
 
-% Compute RHS of Eq (6.11) in Thm 6
+% Compute terms needed for Corollary 4.1
 function D = derivModes(t,kvec)
 
     old = reshape(kvec,[2,kappa+1]);
@@ -160,7 +157,7 @@ function J = Jacob(soln)
     J = [-1+2*u*v, u.^2; -2*u*v, -u.^2];
 end
 
-% Series coefficents in Eq (6.11a)
+% Series coefficents for zeroth term in Corollary 4.1
 function M = coef_zero(t,kappa)
     M = zeros(kappa-1,1);
 
@@ -169,7 +166,7 @@ function M = coef_zero(t,kappa)
     end
 end
 
-% Series coefficents in Eq (6.11b)
+% Series coefficents for higher terms in Corollary 4.1
 function M = coef_nonzero_matrix(t,kappa)
    M = zeros(kappa-1,kappa-1);
 
