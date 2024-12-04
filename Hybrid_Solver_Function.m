@@ -1,9 +1,9 @@
 function Hybrid_Solver_Function(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
-% Function produces the plots for general growths (Strain independent of r if written in terms of xi)
+% Function obtains solutions and plots for general multi-compartment hybrid evolution
+% (Strain independent of r if written in terms of xi)
 
 %% Parameters
-% Reaction-kinetic and diffusion parameters
-
+% Reaction-kinetics and diffusion parameters for reaction-diffusion system
 a=0.01;       
 b=1;
 d_1 = 0.004;
@@ -15,7 +15,7 @@ s_dot_vec = s_dots; % Limiting apical growth (starts at s_0)
 S_int_vec = S_ints; % Uniform growth in each compartment (starts at S_int,1)
 N = length(S_int_vec); % N 'compartment(s)', N+1 apical growth nodes
 
-% Solution parameters
+% Numerical simulation parameters
 Tf=final_time;
 max_mode = max_k;
 x = linspace(0,1,space_res);
@@ -26,13 +26,12 @@ t_nodes = linspace(0,Tf,time_res*10);
 node_locations = calc_node_locations(t_nodes);
 max_size = max(node_locations(N+1,:));
 
-
-%% Solve the reaction-diffusion PDE
+%% Solve the reaction-diffusion PDE system
 function zvec = kenetics(w) % Schnakenberg
     zvec = [a-w(1) + w(1)^2 * w(2); b - w(1)^2 * w(2)];
 end
  
-function u0 = pdeic(xi) % Set inital conditions
+function u0 = pdeic(xi) % Set the inital conditions
     u0 = [(a+b); b/(a+b)^2];
     u0 = u0 + 0.05*(rand-0.5);
 end
@@ -50,12 +49,12 @@ function [pl,ql,pr,qr] = pdebc(xl,ul,xr,ur,tt) % Boundary Conditions
     qr = [1;1]; 
 end
 
-% Extract solution
+% Simulation of the reaction-diffusion system using method of linear and FDM in space
 sol = pdepe(0, @pdefun, @pdeic, @pdebc, x, t);
 u = sol(:,:,1);
 v = sol(:,:,2);
 
-%% Plot solution
+%% Plot of the activator solution, u, from the reaction-diffusion system
 figure('Color','white')
 [X,T] = meshgrid(x,t);
 
@@ -83,7 +82,7 @@ colormap(ax1,parula)
 shading interp
 
 
-%% Extract/plot modes
+%% Extract and plot spatial modes from the numerical simulation
 % Base state in each compartment
 base_each_compartment = {};
 IC = [(a+b); b/(a+b)^2];
@@ -105,11 +104,10 @@ for tt_i=1:length(t)
     end
 end
 
-
 u_base = base(:,:,1);
 v_base = base(:,:,2);
 
-% Coefficents of fourier modes of (u-u_base, v-v_base)
+% Determine coefficents of spatial modes of (u-u_base, v-v_base)
 krange = 1:max_mode;
 mag_matrix = zeros(length(t),max_mode);
 mag_maxs = zeros(length(t),1);
@@ -124,7 +122,7 @@ for tt = 1:length(t)
     mag_maxs(tt) = krange(ind);
 end
 
-% Plot numerical modes
+% Plot numerically calculated coefficients of spatial modes
 ax2 = subplot(1,3,2);
 pcolor(K,T,mag_matrix);
 xlabel('Wavenumber $k$', Interpreter='latex', FontSize=18)
@@ -133,15 +131,14 @@ title('Numerically extracted modes', Interpreter='latex', FontSize=20)
 shading flat
 
 
-%% Solve truncated linear system using ode15s
-
+%% Solve linear instability system from Corollary 5.1
 D = [d_1,0;0,d_2];
 IC_modes = 0.001*(rand(2,max_mode+1)-0.5);
 IC_compartments = [IC(1)*ones(1,N);IC(2)*ones(1,N)];
 IC_colvec = reshape([IC_modes, IC_compartments], [2*(max_mode+1+N),1]);
 [t_modes,modes_sol] = ode15s(@(tt,kvec) derivModes(tt,kvec), [0,Tf], IC_colvec);
 
-%Using RHS of EQN (5.11a) and RHS of EQN (5.7)
+% Dynamics relevant for Corollary 5.1
 function dkvec = derivModes(tt,kvec)
     old = reshape(kvec, [2,max_mode+1+N]);
     old_modes = old(:,1:max_mode+1);
@@ -159,7 +156,7 @@ function dkvec = derivModes(tt,kvec)
         new_compartments(:,ii) = kenetics(old_compartments(:,ii)) + S_int_vec{ii}(tt)*old_compartments(:,ii);
     end
 
-    % Dervis for modes
+    % Terms relevant for spatial modes
     for k = 0:max_mode
         new_modes(:,k+1) = -(k*pi/r_now)^2*D*old_modes(:,k+1);
         for l = 0:max_mode
@@ -170,9 +167,9 @@ function dkvec = derivModes(tt,kvec)
     dkvec = reshape([new_modes, new_compartments], [2*(max_mode+1+N),1]);
 end
 
-% Compute the matrix coefficents M_{k,l}(tt) 
+% Compute the matrix coefficents M_{k,l}(tt) in Corollary 5.1
 function coefs = get_matrix_coefs(tt, cmps, seg_ends)
-     res = 101; % can be increased or decreased to improve accuracy or speed simulations
+    res = 101; % can be increased (to improve accuracy of simulations) or decreased (to improve speed of simulations)
 
     coefs = zeros(2,2,max_mode+1,max_mode+1);
 
@@ -250,7 +247,7 @@ colormap(ax3,'parula')
 shading flat
 
 
-%% Functions for important quantities
+%% Functions for useful quantities
 
 % Precompute positions of apical nodes, jj=N for r
 function z = calc_node_locations(req_times)
