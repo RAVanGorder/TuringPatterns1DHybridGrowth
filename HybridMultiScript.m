@@ -1,6 +1,8 @@
-%% Using Hybrid_Solver_Function(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k):
+%% Script to run using Hybrid_Solver_Function(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k):
+%% Parameters are specified for multi-compartment hybrid growth model
+
 % Parameter Definitions
-% node_initals: Row vector of apical growth node locations as t=0 (include 0 and 1)
+% node_initals: Row vector of apical growth node locations at time t=0 (include 0 and 1 as the initial boundaries for the scaled domain)
 % s_dots: Cell array of apical growth functions at each node
 % S_ints: Cell array of uniform growth functions in each compartment
 % final_time: Run the simulations until this time
@@ -8,11 +10,10 @@
 % space_res: How many space_steps used in PDE simulation (ODE automatic)
 % max_k: Where to trunate the series in the ODE system 
 
-% We provide all examples showin in the paper
+% We provide all examples shown in the paper
 % Uncomment parameters for a specific example to run it
 
-
-% Apical and mixed growth cases shown in Figure 6
+% Apical and mixed growth cases shown in Figure 6 of the paper
 
 % Fig 6a
 % time_res=1001;
@@ -87,7 +88,7 @@
 % final_time=60;
 
 
-% Mixed growth and decay cases shown in Figure 7
+% Mixed growth and decay cases shown in Figure 7 of the paper
 
 % Fig 7a
 % time_res=1001;
@@ -134,7 +135,7 @@
 % final_time=80;
 
 
-% Transport cases shown in Figure 8
+% Transport cases shown in Figure 8 of the paper
 
 % Fig 8a
 % time_res=2001;
@@ -172,6 +173,7 @@
 % max_k=100;
 % final_time=200;
 
+%With the parameters defined, we call the solver functions used to generate PDE and ODE solutions
 Hybrid_Solver_Function(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
 
 
