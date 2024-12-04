@@ -148,7 +148,7 @@ function z = rdot(t)
     z = 0.05; 
 end
 
-% Coefficents in series expansion for linear instability result
+% Coefficents in series expansion of linear instability result
 function M = getCoefs(max)
     M = zeros(max-1,max-1);
 
