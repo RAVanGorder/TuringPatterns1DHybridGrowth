@@ -1,6 +1,5 @@
 function W = extract_gen_fourier_coff(u, xvec, cutoff)
-% Given a solution vector u with, computes the magnitude of each of the 
-% 1-cutoff generalised fourier modes
+% Given a solution vector u, this code computes the magnitude of each of the spatial modes
 
 W = zeros(1,cutoff);
 len_int = xvec(end);
