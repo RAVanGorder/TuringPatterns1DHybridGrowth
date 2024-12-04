@@ -1,4 +1,5 @@
 function M = uniform_condition_calc(a,b,d_1,d_2,l,kmax, t, y_base, S, r)
+% Implementation of Corollary 3.1
 % Returns a matrix representing the modes we expect to be unstable at each
 % time step, based on linearisation about the steady-state solution y_base
 
@@ -17,7 +18,6 @@ for k=1:kmax
         - (k^2*pi^2./(r.^2*l^2)) .* (d_1 * gv(U,V) + d_2 * fu(U,V))...
         + (k^2*pi^2./(r.^2*l^2)).^2 * d_1 * d_2;
 end
-
 
 %% Calculate RHS of Eq (4.12) in Thm 4
 d1 = n_Deriv((fu(U,V)+S)./fv(U,V), t);
