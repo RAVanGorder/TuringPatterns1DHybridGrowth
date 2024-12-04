@@ -1,7 +1,7 @@
 function Uniform_Solver
-% Function produces the plots for the hybrid growths (solve the PDE + numerical modes + Thm 4)
+% Function produces solutions for uniform growth cases (solves the PDE & numerical modes & generates instability regions)
 
-%% Parameters
+%% Parameters used int he reaction-diffusion system
 a=0.01;
 b=1;
 d_1 = 0.004;
@@ -9,7 +9,7 @@ d_2 = 0.1;
 L=1;
 Tf=170;
 
-%% Growth functions
+%% Growth functions for uniform evolutions - these can be modified as needed
 function z = S(t)
     z = 0.053-0.00064*t';%().*ones(1,length(t));
 end
@@ -18,7 +18,7 @@ function z = r(t)
     z = exp(0.053*t-0.00032*t.^2);
 end
 
-%% Solve PDE
+%% Solve the reaction-diffusion PDEs
 function zvec = kenetics(w)
     zvec = [a-w(1) + w(1)^2 * w(2); b - w(1)^2 * w(2)];
 end
@@ -50,7 +50,7 @@ sol = pdepe(0, @pdefun, @pdeic, @pdebc, x, t);
 u = sol(:,:,1);
 v = sol(:,:,2);
 
-%% Plot solution
+%% Plot the solution for the activator, u, in the reaction-diffusion system
 
 figure('color','white')
 
@@ -66,7 +66,7 @@ title('System evolution', Interpreter='latex', FontSize=20)
 colormap(ax1,parula)
 shading interp
 
-%% Plot modes over time
+%% Plot coefficients of the spatial modes over time
 max_mode = 45;
 krange = 1:max_mode;
 mag_matrix = zeros(length(t),max_mode);
@@ -89,13 +89,13 @@ ylabel('Time $t$', Interpreter='latex', FontSize=18)
 title('Numerically extracted modes', Interpreter='latex', FontSize=20)
 shading flat
 
-%% Analytic instability (Plot result of Thm 4)
+%% Analytic instability regions (instability regions implied from Corollary 3.1)
 
-% Solve for homogenous state (u_0(t),v_0(t))
+% Solve for the time-varying spatially homogenous base state (u_0(t),v_0(t))
 IC = [(a+b); b/(a+b)^2];
 [t_base,y_base] = ode45(@(t,y) [derX(t,y(1),y(2),a,b);derY(t,y(1),y(2),a,b)], [0,t(end)], IC);
 
-% Use Thm 4 to predict stability
+% Use Corollary 3.1 to predict regions of instability
 stability_matrix = uniform_condition_calc(a,b,d_1,d_2,L,...
     max_mode, t_base, y_base, S(t_base)', r(t_base));
 
@@ -115,7 +115,7 @@ shading flat
 
 sgtitle(['$S(t) = 0.053-0.00064t$'], Interpreter="latex", FontSize=20)
 
-%% Helper functions (Appying THM 4 function in uniform_condition_calc.m)
+%% Helper functions (Appying Corollary 3.1 function in uniform_condition_calc.m)
 
 function du = derX(t,u,v,a,b)
     du = a - u + u.^2 .* v + S(t).*u;
