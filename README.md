@@ -33,24 +33,8 @@ final_time: Run the simulations until this time<br>
 time_res: How many timesteps used in PDE simulation<br>
 space_res: How many spacesteps used in PDE simulation<br>
 max_k: Where to truncate the series in the ODE system <br>
-As an example, to generate the plots in Figure 6(a), we enter the parameters:<br>
- time_res=1001;<br>
- space_res=201;<br>
- node_initals = [0,1/2,1];<br>
- s_dots = {@(t) 0*t+0.04, @(t) 0*t+0.04, @(t) 0*t+0.04};<br>
- S_ints = {@(t) 0*t, @(t) 0*t};<br>
- max_k=60;<br>
- final_time=100;<br>
-We choose 1001 timesteps and 201 space steps at each timestep, with three apical nodes initially at $\xi$ = 0, 0.5, and 1. s_dots and S_ints describe the evolution of the apical nodes and uniform regions, as discussed in the paper. The maximal number of modes displayed in the instability analysis is 60, and the simulation is run out to a final time of $t = 100$ dimensionless time units.
-As another example, to generate the plots in Figure 8(b), we enter the parameters:<br>
-time_res=2001;
-space_res=201;
-node_initals = [0,1/2,1];
-s_dots = {@(t) 0*t-0.1, @(t) 0*t+0.1, @(t) 0*t-0.1};
-S_ints = {@(t) 0*t+0.02, @(t) 0*t+0.02};
-max_k=100;
-final_time=160;
-We choose 2001 timesteps and 201 space steps at each timestep, with three apical nodes initially at $\xi$ = 0, 0.5, and 1. s_dots and S_ints describe the evolution of the apical nodes and uniform regions, as discussed in the paper. The maximal number of modes displayed in the instability analysis is 100, and the simulation is run out to a final time of $t = 160$ dimensionless time units.
+
+We can vary the space- and timesteps to test the convergence of the solutions for each problem, and we have done this in several cases for various domain evolutions. The solutions appear to converge to what one suspects is a true solution for the reaction-diffusion system in each case. 
 
 PDE solutions for the relevant reaction-diffusion systems are plotted for the activator, u, in all cases. The heat map runs from blue (smallest or zero value) and yellow (maximal value). In Figures 1, 2, and 4 we plot mode amplitudes of the PDE solutions calculated from the numerical simulations, as these are useful for detecting dominant spatial modes at each timestep. (We obtain this information in the simulations of Section 5 and Figures 6, 7, and 8, yet do not use the space to plot it there, rather just extracting the dominant mode.) In Figures 2, 4, 6, 7, and 8 we plot the amplitudes of the linear modes present in the perturbation of a base state near the Turing instability at each point in time, which allows us to understand which spatial modes contribute to the spatial instability leading to pattern formation. As expected from the theory, the envelope of unstable modes changes over time as the domain evolves. We plot the dominant spatial mode from the simulation of the PDE systems in red against these unstable modes, for sake of comparison.
 
