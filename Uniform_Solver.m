@@ -60,10 +60,15 @@ X = r(t)'.*X;
 
 ax1 = subplot(1,3,1);
 pcolor(X,T,u)
+colorbar('eastoutside');
 xlabel('Position $x$', Interpreter='latex', FontSize=18)
 ylabel('Time $t$', Interpreter='latex', FontSize=18)
 title('System evolution', Interpreter='latex', FontSize=20)
+hold on
 colormap(ax1,parula)
+plot(r(t),t,'red',LineStyle='-',LineWidth=2)
+plot(zeros(size(t)),t,'red',LineStyle='-',LineWidth=2)
+hold off
 shading interp
 
 %% Plot coefficients of the spatial modes over time

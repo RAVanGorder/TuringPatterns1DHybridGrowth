@@ -66,7 +66,12 @@ pcolor(X,T,u)
 xlabel('Position $x$', Interpreter='latex', FontSize=18)
 ylabel('Time $t$', Interpreter='latex', FontSize=18)
 title('System evolution', Interpreter='latex', FontSize=20)
+hold on
 colormap(ax1,parula)
+colorbar('eastoutside');
+plot(r(t),t,'red',LineStyle='-',LineWidth=2)
+plot(zeros(size(t)),t,'red',LineStyle='-',LineWidth=2)
+hold off
 shading interp
 
 %% Plot spatial modes over time

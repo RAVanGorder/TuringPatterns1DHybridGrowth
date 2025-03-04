@@ -69,6 +69,7 @@ ax1 = subplot(1,3,1);
 
 hold on
 pcolor(X,T,u)
+colorbar('eastoutside');
 % Lines describing locations of apical nodes over time
 for i=1:N+1
     plot(node_locations(i,:),t_nodes,'red',LineStyle='-',LineWidth=2);

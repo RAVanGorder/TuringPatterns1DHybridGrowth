@@ -10,7 +10,7 @@ d_2 = 0.1;
 L=1;
 
 % Parameters for simulation
-Tf=100;
+Tf= 100;
 max_mode = 60;
 kappa = max_mode+1;
 x = linspace(0,1,501);
@@ -62,7 +62,12 @@ pcolor(X,T,u)
 xlabel('Position $x$', Interpreter='latex', FontSize=18)
 ylabel('Time $t$', Interpreter='latex', FontSize=18)
 title('System evolution', Interpreter='latex', FontSize=20)
+hold on
 colormap(ax1,parula)
+colorbar('eastoutside');
+plot(r(t),t,'red',LineStyle='-',LineWidth=2)
+plot(zeros(size(t)),t,'red',LineStyle='-',LineWidth=2)
+hold off
 shading interp
 
 %% Plot numerically computed modes over time
@@ -116,7 +121,7 @@ title('Linear mode evolution', Interpreter='latex', FontSize=20)
 colormap(ax3,'parula')
 shading flat
 
-sgtitle(['$r(t) = \exp(0.04t)$'], Interpreter="latex", FontSize=20)
+%sgtitle(['$r(t) = \exp(0.04t)$'], Interpreter="latex", FontSize=20)
 
 end
 
