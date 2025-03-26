@@ -138,13 +138,13 @@
 % Transport cases shown in Figure 8 of the paper
 
 % Fig 8a
-% time_res=2001;
-% space_res=201;
-% node_initals = [0,1/2,1];
-% s_dots = {@(t) 0*t+0.1, @(t) 0*t-0.1, @(t) 0*t+0.1};
-% S_ints = {@(t) 0*t+0.02, @(t) 0*t+0.02};
-% max_k=100;
-% final_time=160;
+time_res=2001;
+space_res=201;
+node_initals = [0,1/2,1];
+s_dots = {@(t) 0*t+0.1, @(t) 0*t-0.1, @(t) 0*t+0.1};
+S_ints = {@(t) 0*t+0.02, @(t) 0*t+0.02};
+max_k=100;
+final_time=160;
 
 % Fig 8b
 % time_res=2001;
@@ -173,8 +173,22 @@
 % max_k=100;
 % final_time=200;
 
-%With the parameters defined, we call the solver functions used to generate PDE and ODE solutions
-Hybrid_Solver_Function(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
+
+% time_res=501;
+% space_res=101;
+% node_initals = [0,0.5,1];
+% 
+% s_dots = {@(t) 0.05*(t<50)-0.15*(t>=50), @(t) 0.05*(t<50)-0.15*(t>=50), @(t) 0.05*(t<50)-0.15*(t>=50)};
+% S_ints = {@(t) 0.05*(t>=50),@(t) 0.05*(t>=50)};
+% max_k=35;
+% final_time=72;
+
+
+Hybrid_Solver_Function_S(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
+
+Hybrid_Solver_Function_GM(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
+
+Hybrid_Solver_Function_FHN(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
 
 
 
