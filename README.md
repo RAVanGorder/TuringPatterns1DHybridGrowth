@@ -7,15 +7,15 @@ robert.vangorder@otago.ac.nz
 We briefly discuss specific MATLAB code used to run the simulations shown in the paper. In carrying out simulations shown in the paper, we run simulations of the fully nonlinear reaction-diffusion systems using the finite difference method along with the method of lines. We simulate these under relevant the static-domain formulations and map the solutions back to the time-varying domains to generate plots. We also simulate the system of ODEs obtained through the Turing instability analysis for each of the various Theorems and Corollaries in the paper, where relevant. All of these are implemented via MATLAB. 
 
 There are several specific m files, and their brief descriptions are:<br>
-Uniform_Solver_FHN.m - Code used to solve the uniform growth problem under FitzHugh–Nagumo kinetics<br>
-Uniform_Solver_GM.m - Code used to solve the uniform growth problem under Gierer–Meinhardt kinetics<br>
-Uniform_Solver_S.m - Code used to solve the uniform growth problem under Schnakenberg kinetics<br>
-uniform_condition_calc.m - Code to generate plots of instability regions for the uniform growth problem<br>
 HybridMultiScript.m - Code used to input parameters for multi--compartment hybrid growth (can also be used for single-compartment, as well as standard apical and uniform growth cases)<br>
 Hybrid_Solver_Function_FHN.m - Code used to solve the multi--compartment hybrid growth model and associated linear instability problem under FitzHugh–Nagumo kinetics<br>
 Hybrid_Solver_Function_GM.m - Code used to solve the multi--compartment hybrid growth model and associated linear instability problem under Gierer–Meinhardt kinetics<br>
 Hybrid_Solver_Function_S.m - Code used to solve the multi--compartment hybrid growth model and associated linear instability problem under Schnakenberg kinetics<br>
 extract_gen_fourier_coff.m - Code called on to compute Fourier coefficients
+Uniform_Solver_FHN.m - Code used to solve the uniform growth problem under FitzHugh–Nagumo kinetics<br>
+Uniform_Solver_GM.m - Code used to solve the uniform growth problem under Gierer–Meinhardt kinetics<br>
+Uniform_Solver_S.m - Code used to solve the uniform growth problem under Schnakenberg kinetics<br>
+uniform_condition_calc.m - Code to generate plots of instability regions for the uniform growth problem<br>
 
 More specifically...
 
