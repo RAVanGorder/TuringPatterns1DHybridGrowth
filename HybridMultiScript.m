@@ -138,13 +138,13 @@
 % Transport cases shown in Figure 8 of the paper
 
 % Fig 8a
-time_res=2001;
-space_res=201;
-node_initals = [0,1/2,1];
-s_dots = {@(t) 0*t+0.1, @(t) 0*t-0.1, @(t) 0*t+0.1};
-S_ints = {@(t) 0*t+0.02, @(t) 0*t+0.02};
-max_k=100;
-final_time=160;
+% time_res=2001;
+% space_res=201;
+% node_initals = [0,1/2,1];
+% s_dots = {@(t) 0*t+0.1, @(t) 0*t-0.1, @(t) 0*t+0.1};
+% S_ints = {@(t) 0*t+0.02, @(t) 0*t+0.02};
+% max_k=100;
+% final_time=160;
 
 % Fig 8b
 % time_res=2001;
@@ -173,7 +173,6 @@ final_time=160;
 % max_k=100;
 % final_time=200;
 
-
 % time_res=501;
 % space_res=101;
 % node_initals = [0,0.5,1];
@@ -183,13 +182,80 @@ final_time=160;
 % max_k=35;
 % final_time=72;
 
+%% Testing cases (low res for speed)
 
+% Pure uniform - switch solvers to ode115 before running
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0*t, @(t) 0*t};
+% S_ints = {@(t) 0*t+0.022};
+% max_k=40;
+% final_time=100;
+
+% % Left apical - use ode15s
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0.1+0*t, @(t) 0*t};
+% S_ints = {@(t) 0*t};
+% max_k=40;
+% final_time=100;
+
+% % Right apical - use ode15s
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0*t, @(t) 0.1+0*t};
+% S_ints = {@(t) 0*t};
+% max_k=40;
+% final_time=100;
+
+% % Both apical - use ode15s
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0.05+0*t, @(t) 0.05+0*t};
+% S_ints = {@(t) 0*t};
+% max_k=40;
+% final_time=100;
+
+% % Apical plus uniform growth - use ode15s
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0.01+0*t, @(t) 0.07+0*t};
+% S_ints = {@(t) 0.01+0*t};
+% max_k=50;
+% final_time=100;
+
+% % Apical plus uniform decay - use ode15s
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0.1+0*t, @(t) 0.1+0*t};
+% S_ints = {@(t) -0.02+0*t};
+% max_k=50;
+% final_time=100;
+
+% % 7(a) from paper - use ode15s
+% time_res=201;
+% space_res=101;
+% node_initals = [0,1];
+% s_dots = {@(t) 0.05+0*t, @(t) 0.05+0*t};
+% S_ints = {@(t) -0.02*(t>50)};
+% max_k=45;
+% final_time=100;
+
+tic
 Hybrid_Solver_Function_S(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
-
+toc
+tic
 Hybrid_Solver_Function_GM(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
-
+toc
+tic
 Hybrid_Solver_Function_FHN(node_initals, s_dots, S_ints, final_time, time_res, space_res, max_k)
-
+toc
 
 
 
