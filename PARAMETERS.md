@@ -1,0 +1,172 @@
+Parameter combinations used to run the code resulting in the figures displayed in the paper. 
+
+We have considered a variety of parameter values in our simulations. This document lists the various parameter combinations taken to generate the figures in out paper. These parameters may be entered into HybridMultiScript_X.m as needed. 
+
+% Apical growth in Figure 3
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0, @(t) 0*t+0.01};
+ S_ints = {@(t) 0*t};
+ max_k=60;
+ final_time=1000;
+ 
+% Hybrid apical - uniform growth in Figure 4
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0.01, @(t) 0.0005*t+0};
+ S_ints = {@(t) 0*t + 0.005};
+ max_k=60;
+ final_time=200;
+ 
+% Hybrid of apical and uniform growth shown in Figure 5
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0, @(t) 0*t+0.01};
+ S_ints = {@(t) 0*t + 0.005};
+ max_k=60;
+ final_time=400;
+ 
+% Hybrid of apical growth and uniform contraction shown in Figure 5
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0, @(t) 0*t+0.01};
+ S_ints = {@(t) 0*t - 0.002};
+ max_k=20;
+ final_time=1000;
+ 
+ % Eleven apical nodes bounding ten uniformly growing regions shown in Figure 6
+ time_res=1001;
+ space_res=401;
+ node_initals = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1];
+ s_dots = {@(t) 0*t+0.01, @(t) 0*t+0.015, @(t) 0*t+0.02, @(t) 0*t+0.025, @(t) 0*t+0.03, @(t) 0*t+0.035, @(t) 0*t+0.03, @(t) 0*t+0.025, @(t) 0*t+0.02, @(t) 0*t+0.015, @(t) 0*t+0.01};
+ S_ints = {@(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002, @(t) 0*t+0.002};
+ max_k=100;
+ final_time=100;
+
+ % Transport of patterns into a central apical sink, as shown in Figure 7
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1/2,1];
+ s_dots = {@(t) 0*t+0.05, @(t) 0*t-0.05, @(t) 0*t+0.05};
+ S_ints = {@(t) 0*t+0.01, @(t) 0*t+0.01};
+ max_k=50;
+ final_time=300;
+
+ % Transport of patterns away from a central apical source, as shown in Figure 7
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1/2,1];
+ s_dots = {@(t) 0*t-0.05, @(t) 0*t+0.05, @(t) 0*t-0.05};
+ S_ints = {@(t) 0*t+0.01, @(t) 0*t+0.01};
+ max_k=50;
+ final_time=300;
+
+ % Transport of patterns into the center of a domain undergoing apical growth yet uniform contraction, as shown in Figure 8
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0.1, @(t) 0*t+0.1};
+ S_ints = {@(t) 0*t-0.02};
+ max_k=50;
+ final_time=500;
+ 
+% Example of simple transport, as shown in Figure 9
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t-0.05, @(t) 0*t+0.1};
+ S_ints = {@(t) 0*t+0};
+ max_k=50;
+ final_time=400;
+ 
+% Example of static pattern under the balance of growth and contraction, as shown in Figure 10
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1/2,1];
+ s_dots = {@(t) 0*t-0.01, @(t) 0*t-0.01, @(t) 0*t-0.01};
+ S_ints = {@(t) 0*t+0.040, @(t) 0*t+0.040};
+ max_k=100;
+ final_time=200;
+ 
+% Apical growth followed by a period of uniform contraction, as shown in Figure 11 
+% time_res=1001;
+% space_res=201;
+% node_initals = [0,1/2,1];
+% apfun = @(t) (0*t + 0.05);
+% unifun = @(t) (0*t - 0.2*(t>50));
+% s_dots = {apfun, apfun, apfun};
+% S_ints = {unifun, unifun};
+% max_k=40;
+% final_time=70;
+
+% Apical growth followed by a period of uniform growth or contraction in each sub-region, as shown in Figure 11 
+% node_initals = [0,1/2,1];
+% apfun = @(t) (0*t + 0.05);
+% unifun1 = @(t) (0*t - 0.2*(t>50));
+% unifun2 = @(t) (0*t + 0.02*(t>50));
+% s_dots = {apfun, apfun, apfun};
+% S_ints = {unifun1, unifun2};
+% max_k=40;
+% final_time=70;
+
+% Apical growth followed by a period of apical decay moderated by uniform growth, as shown in Figure 12 
+% time_res=1001;
+% space_res=201;
+% node_initals = [0,1/2,1];
+% apfun = @(t) (0*t + 0.05*(t<50) - 0.2*(t>50));
+% unifun = @(t) (0*t + 0.05*(t>50));
+% s_dots = {apfun, apfun, apfun};
+% S_ints = {unifun, unifun};
+% max_k=30;
+% final_time=73;
+
+% A three-region version of apical growth followed by a period of apical decay moderated by uniform growth, as shown in Figure 12
+% time_res=1001;
+% space_res=201;
+% node_initals = [0,1/3,2/3,1];
+% apfun = @(t) (0*t + 0.05*(t<50) - 0.2*(t>50));
+% unifun = @(t) (0*t + 0.05*(t>50));
+% s_dots = {apfun, apfun, apfun, apfun};
+% S_ints = {unifun, unifun, unifun};
+% max_k=50;
+% final_time=72;
+ 
+% Wavy apical evolution along with uniform growth, as shown in Figure 13
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0, @(t) 0.1*sin(0.02*t) + 0};
+ S_ints = {@(t) 0*t+0.001};
+ max_k=60;
+ final_time=800;
+ 
+% Wavy uniform evolution along with apical growth, as shown in Figure 13
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1];
+ s_dots = {@(t) 0*t+0, @(t) 0*t+0.01};
+ S_ints = {@(t) 0.1*sin(0.02*t) + 0};
+ max_k=60;
+ final_time=800;
+ 
+% Multi-region wavy apical evolution along with uniform growth, as shown in Figure 14
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1/2,1];
+ s_dots = {@(t) 0*t+0.01, @(t) 0*t+0.01, @(t) 0*t+0.01};
+ S_ints = {@(t) 0.005*sin(0.04*t) + 0, @(t) 0.005*sin(0.02*sqrt(2)*t) + 0};
+ max_k=80;
+ final_time=800;
+ 
+% Multi-region wavy uniform evolution along with apical growth, as shown in Figure 14
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1/2,1];
+ s_dots = {@(t) 0.005*sin(0.02*t) + 0, @(t) 0.005*sin(0.02*sqrt(2)*t) + 0, @(t) 0.01*sin(0.02*t) + 0};
+ S_ints = {@(t) 0*t+0.0005, @(t) 0*t+0.001};
+ max_k=20;
+ final_time=800;
