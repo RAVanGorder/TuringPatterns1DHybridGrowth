@@ -31,7 +31,7 @@ final_time: Run the simulations until this time<br>
 time_res: How many timesteps used in PDE simulation<br>
 space_res: How many spacesteps used in PDE simulation<br>
 max_k: Where to truncate the series in the ODE system <br>
-We provide examples of choices used in the Figures of our paper in the file PARAMETERS.md. 
+We provide examples of choices used in the Figures of our paper in the file PARAMETERS.txt and encourage those interested to modify our choices an explore the myriad possibilities for parameters and resulting simulations. 
 
 We can vary the space- and timesteps to test the convergence of the solutions for each problem using time_res and space_res, and we have done this in several cases for various domain evolutions. The solutions appear to converge to what one suspects is a true solution for the reaction-diffusion system in each case. 
 
