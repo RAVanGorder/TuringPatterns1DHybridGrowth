@@ -31,9 +31,13 @@ final_time: Run the simulations until this time<br>
 time_res: How many timesteps used in PDE simulation<br>
 space_res: How many spacesteps used in PDE simulation<br>
 max_k: Where to truncate the series in the ODE system <br>
+We provide examples of choices used in the Figures of our paper in the file PARAMETERS.md. 
 
 We can vary the space- and timesteps to test the convergence of the solutions for each problem using time_res and space_res, and we have done this in several cases for various domain evolutions. The solutions appear to converge to what one suspects is a true solution for the reaction-diffusion system in each case. 
 
-PDE solutions for the relevant reaction-diffusion systems are plotted for the activator, u, in all cases. Color bars are provided for each set of reaction kinetics. We also plot mode amplitudes of the PDE solutions calculated from the numerical simulations, as these are useful for detecting dominant spatial modes at each timestep. We plot the amplitudes of the linear modes present in the perturbation of a base state near the Turing instability at each point in time, which allows us to understand which spatial modes contribute to the spatial instability leading to pattern formation. (We also plot the growth rate of linear modes, although these are typically only useful for predicting pattern formation when uniform domain evolution is dominant and apical evolution is negligible.) As expected from the theory, the envelope of unstable modes changes over time as the domain evolves. We plot the dominant spatial mode from the simulation of the PDE systems in red against these unstable modes, for sake of comparison.
+PDE solutions for the relevant reaction-diffusion systems are plotted for the activator, u, in all cases. Color bars are provided for each set of reaction kinetics. We also plot mode amplitudes of the PDE solutions calculated from the numerical simulations, as these are useful for detecting dominant spatial modes at each timestep. We plot the amplitudes of the linear modes present in the perturbation of a base state near the Turing instability at each point in time, which allows us to understand which spatial modes contribute to the spatial instability leading to pattern formation. (We also plot the growth rate of linear modes, although these are typically only useful for predicting pattern formation when uniform domain evolution is dominant and apical evolution is negligible.)) As expected from the theory, the envelope of unstable modes changes over time as the domain evolves. We plot the dominant spatial mode from the simulation of the PDE systems in red against these unstable modes, for sake of comparison.
 
 All MATLAB code principally written by W. A. Waters and modified in minor ways by R. A. Van Gorder.
+
+
+
