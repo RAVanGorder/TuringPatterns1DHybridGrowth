@@ -131,17 +131,8 @@ We have considered a variety of parameter values in our simulations. This docume
  S_ints = {@(t) 0.1*sin(0.02*t) + 0};
  max_k=60;
  final_time=800;
- 
+  
 % Multi-region wavy apical evolution along with uniform growth, as shown in Figure 12
- time_res=1001;
- space_res=201;
- node_initals = [0,1/2,1];
- s_dots = {@(t) 0*t+0.01, @(t) 0*t+0.01, @(t) 0*t+0.01};
- S_ints = {@(t) 0.005*sin(0.04*t) + 0, @(t) 0.005*sin(0.02*sqrt(2)*t) + 0};
- max_k=80;
- final_time=800;
- 
-% Multi-region wavy uniform evolution along with apical growth, as shown in Figure 12
  time_res=1001;
  space_res=201;
  node_initals = [0,1/2,1];
@@ -149,3 +140,13 @@ We have considered a variety of parameter values in our simulations. This docume
  S_ints = {@(t) 0*t+0.0005, @(t) 0*t+0.001};
  max_k=20;
  final_time=800;
+
+% Multi-region wavy uniform evolution along with apical growth, as shown in Figure 12
+ time_res=1001;
+ space_res=201;
+ node_initals = [0,1/2,1];
+ s_dots = {@(t) 0*t+0.01, @(t) 0*t+0.01, @(t) 0*t+0.01};
+ S_ints = {@(t) 0.005*sin(0.04*t) + 0, @(t) 0.005*sin(0.02*sqrt(2)*t) + 0};
+ max_k=80;
+ final_time=800;
+
